@@ -30,19 +30,19 @@ export function HomePage() {
       <section>
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-3xl font-semibold text-ink-100">Ship It</h1>
-            <p className="text-ink-300 max-w-2xl mt-1">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-ink-100">Ship It</h1>
+            <p className="text-sm sm:text-base text-ink-300 max-w-2xl mt-1">
               A personal training rig. Drill the syntax. Build the projects. Ship without AI.
             </p>
           </div>
-          <div className="card px-4 py-3 text-sm text-ink-200 flex gap-6">
+          <div className="card px-4 py-3 text-sm text-ink-200 flex gap-6 self-stretch sm:self-auto">
             <div>
               <div className="text-[11px] text-ink-400">Lessons done</div>
-              <div className="text-2xl font-semibold text-ink-100">{lessonsDone}</div>
+              <div className="text-xl sm:text-2xl font-semibold text-ink-100">{lessonsDone}</div>
             </div>
             <div>
               <div className="text-[11px] text-ink-400">Authored</div>
-              <div className="text-2xl font-semibold text-ink-100">{totalAuthored}</div>
+              <div className="text-xl sm:text-2xl font-semibold text-ink-100">{totalAuthored}</div>
             </div>
           </div>
         </div>

@@ -46,10 +46,22 @@ export function ListenPlayer({ text, compact = false }: ListenPlayerProps) {
       )}
       {(isPlaying || isPaused) && (
         <>
-          <button type="button" onClick={restart} className="btn-ghost" title="Restart">
+          <button
+            type="button"
+            onClick={restart}
+            className="btn-ghost min-w-[40px] px-2"
+            title="Restart"
+            aria-label="Restart"
+          >
             <RestartIcon />
           </button>
-          <button type="button" onClick={stop} className="btn-danger" title="Stop">
+          <button
+            type="button"
+            onClick={stop}
+            className="btn-danger min-w-[40px] px-2"
+            title="Stop"
+            aria-label="Stop"
+          >
             <StopIcon />
           </button>
         </>

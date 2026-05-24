@@ -38,8 +38,8 @@ export function ModulePage() {
           <span className="text-xs text-ink-400">Module {mod.index}</span>
           {mod.isCapstone && <span className="chip bg-accent/20 text-accent-strong">Capstone</span>}
         </div>
-        <h1 className="text-2xl font-semibold text-ink-100 mt-1">{mod.title}</h1>
-        <p className="text-ink-300 mt-2 max-w-2xl">{mod.blurb}</p>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100 mt-1">{mod.title}</h1>
+        <p className="text-sm sm:text-base text-ink-300 mt-2 max-w-2xl">{mod.blurb}</p>
 
         {lessons.length > 0 && (
           <div className="mt-4 max-w-md">
@@ -95,7 +95,7 @@ export function ModulePage() {
                 <li key={lesson.id}>
                   <Link
                     to={`/lesson/${lesson.id}`}
-                    className="card px-4 py-3 flex items-center gap-4 hover:border-accent/40 transition-colors group"
+                    className="card px-3 sm:px-4 py-3 flex items-center gap-3 sm:gap-4 hover:border-accent/40 transition-colors group"
                   >
                     <div
                       className={`shrink-0 h-8 w-8 rounded-full grid place-items-center text-sm font-medium ${
@@ -110,15 +110,20 @@ export function ModulePage() {
                       <div className="text-sm font-medium text-ink-100 group-hover:text-white truncate">
                         {lesson.title}
                       </div>
-                      <div className="text-xs text-ink-300 truncate">{lesson.objective}</div>
-                      <div className="text-[11px] text-ink-400 mt-1">
-                        {lesson.estimatedMinutes} min ·
-                        {p.blocksTotal > 0
-                          ? ` ${p.blocksDone}/${p.blocksTotal} blocks`
-                          : ' explainer'}
+                      <div className="text-xs text-ink-300 truncate hidden sm:block">
+                        {lesson.objective}
+                      </div>
+                      <div className="text-[11px] text-ink-400 mt-1 flex items-center gap-2">
+                        <span>
+                          {lesson.estimatedMinutes} min ·{' '}
+                          {p.blocksTotal > 0
+                            ? `${p.blocksDone}/${p.blocksTotal} blocks`
+                            : 'explainer'}
+                        </span>
+                        <span className="sm:hidden text-ink-200">· {p.pct}%</span>
                       </div>
                     </div>
-                    <div className="w-28 shrink-0">
+                    <div className="w-24 lg:w-28 shrink-0 hidden sm:block">
                       <div className="progress-track">
                         <div className="progress-fill" style={{ width: `${p.pct}%` }} />
                       </div>

@@ -50,8 +50,8 @@ export function LessonPage() {
           <span>·</span>
           <span>module: {lesson.moduleId}</span>
         </div>
-        <h1 className="text-2xl font-semibold text-ink-100 mt-1">{lesson.title}</h1>
-        <p className="text-ink-300 mt-1">{lesson.objective}</p>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100 mt-1">{lesson.title}</h1>
+        <p className="text-sm sm:text-base text-ink-300 mt-1">{lesson.objective}</p>
 
         <div className="mt-4">
           <div className="progress-track">
@@ -73,7 +73,7 @@ export function LessonPage() {
         <QuizBlock quizId={`${lesson.id}-quiz`} questions={lesson.quiz} />
       )}
 
-      <div className="card p-5 flex items-center justify-between gap-3">
+      <div className="card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="text-sm font-medium text-ink-100">Mark lesson complete</div>
           <div className="text-xs text-ink-300">
@@ -83,7 +83,7 @@ export function LessonPage() {
         </div>
         <button
           type="button"
-          className={lessonDone ? 'btn-ghost' : 'btn-primary'}
+          className={lessonDone ? 'btn-ghost w-full sm:w-auto' : 'btn-primary w-full sm:w-auto'}
           onClick={() => markLessonComplete(lesson.id)}
           disabled={lessonDone}
         >

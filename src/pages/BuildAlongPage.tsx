@@ -92,8 +92,8 @@ function BuildAlongContent({ id, progress, onTickMilestone }: ContentProps) {
           </span>
           <span className="text-xs text-ink-400">· ~{ba.estimatedHours}h</span>
         </div>
-        <h1 className="text-2xl font-semibold text-ink-100 mt-1">{ba.title}</h1>
-        <p className="text-ink-300 mt-2 max-w-2xl">{ba.summary}</p>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100 mt-1">{ba.title}</h1>
+        <p className="text-sm sm:text-base text-ink-300 mt-2 max-w-2xl">{ba.summary}</p>
 
         <div className="mt-4 max-w-md">
           <div className="progress-track">
@@ -181,8 +181,8 @@ function BuildAlongContent({ id, progress, onTickMilestone }: ContentProps) {
         </ol>
       </div>
 
-      <div className="card p-5 space-y-4">
-        <div className="flex items-baseline justify-between gap-3 flex-wrap">
+      <div className="card p-4 sm:p-5 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
           <div>
             <h2 className="text-base font-semibold text-ink-100">Starter files</h2>
             <div className="text-xs text-ink-400">
@@ -191,14 +191,14 @@ function BuildAlongContent({ id, progress, onTickMilestone }: ContentProps) {
           </div>
           <button
             type="button"
-            className="btn-primary"
+            className="btn-primary w-full sm:w-auto"
             onClick={() => downloadStarterAsText(ba.id, ba.starterFiles)}
           >
             Download starter (.txt)
           </button>
         </div>
 
-        <div className="flex gap-1 flex-wrap border-b border-ink-700">
+        <div className="flex gap-1 overflow-x-auto sm:flex-wrap border-b border-ink-700 -mx-1 px-1">
           {ba.starterFiles.map((f, i) => (
             <button
               type="button"

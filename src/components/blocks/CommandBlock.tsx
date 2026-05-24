@@ -58,11 +58,16 @@ export function CommandBlock({ id, label, command, expectedOutput }: CommandBloc
           I ran this
         </label>
       </div>
-      <div className="flex items-stretch gap-2">
-        <pre className="flex-1 bg-ink-900 border border-ink-700 rounded-lg px-3 py-2 font-mono text-sm text-ink-100 overflow-x-auto">
+      <div className="flex flex-col sm:flex-row sm:items-stretch gap-2">
+        <pre className="flex-1 bg-ink-900 border border-ink-700 rounded-lg px-3 py-2 font-mono text-sm text-ink-100 overflow-x-auto min-w-0">
           <code>{command}</code>
         </pre>
-        <button type="button" onClick={copy} className="btn-ghost shrink-0" aria-label="Copy command">
+        <button
+          type="button"
+          onClick={copy}
+          className="btn-ghost shrink-0 w-full sm:w-auto"
+          aria-label="Copy command"
+        >
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>

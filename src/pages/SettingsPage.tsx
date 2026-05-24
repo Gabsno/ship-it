@@ -27,8 +27,10 @@ export function SettingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-ink-100">Settings</h1>
-        <p className="text-ink-300 mt-1">Voice presets, rate, pitch. All stored locally.</p>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100">Settings</h1>
+        <p className="text-sm sm:text-base text-ink-300 mt-1">
+          Voice presets, rate, pitch. All stored locally.
+        </p>
       </div>
 
       <section className="card p-5 space-y-5">

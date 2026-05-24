@@ -32,7 +32,7 @@ export function GauntletSnippetPage() {
           <span className="chip bg-ink-700 text-ink-200 border border-ink-600">{snippet.topic}</span>
           <span className="chip bg-ink-700 text-ink-200 border border-ink-600">{snippet.difficulty}</span>
         </div>
-        <h1 className="text-2xl font-semibold text-ink-100 mt-1">{snippet.title}</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100 mt-1">{snippet.title}</h1>
       </div>
 
       <DebugThisBlock
@@ -45,16 +45,16 @@ export function GauntletSnippetPage() {
         title="Fix the snippet so its output matches Expected."
       />
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
         {prev ? (
-          <Link to={`/gauntlet/${prev.id}`} className="btn-ghost">
+          <Link to={`/gauntlet/${prev.id}`} className="btn-ghost text-left">
             ← {prev.title}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
-          <Link to={`/gauntlet/${next.id}`} className="btn-ghost">
+          <Link to={`/gauntlet/${next.id}`} className="btn-ghost text-right">
             {next.title} →
           </Link>
         ) : (

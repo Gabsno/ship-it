@@ -59,7 +59,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </pre>
             </details>
           )}
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button type="button" className="btn-primary" onClick={this.reset}>
               Try again
             </button>

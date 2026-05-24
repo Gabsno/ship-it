@@ -8,29 +8,45 @@
   #root {
     height: 100%;
   }
+  html {
+    /* prevent iOS auto text resize in landscape */
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
     background:
       radial-gradient(60% 50% at 80% -10%, rgba(110, 231, 183, 0.10), transparent 60%),
       radial-gradient(40% 40% at -10% 100%, rgba(167, 243, 208, 0.07), transparent 60%),
       #0b0d10;
   }
+  /* generous tap target hint for every interactive element */
+  button,
+  a,
+  label,
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium transition-colors;
     @apply focus:outline-none focus:ring-2 focus:ring-accent/40;
+    min-height: 40px;
   }
   .btn-primary {
-    @apply btn bg-accent-strong text-ink-900 hover:bg-accent;
+    @apply btn bg-accent-strong text-ink-900 hover:bg-accent active:bg-accent;
   }
   .btn-ghost {
-    @apply btn bg-ink-800 text-ink-100 hover:bg-ink-700 border border-ink-600;
+    @apply btn bg-ink-800 text-ink-100 hover:bg-ink-700 active:bg-ink-700 border border-ink-600;
   }
   .btn-danger {
-    @apply btn bg-danger/15 text-danger hover:bg-danger/25 border border-danger/30;
+    @apply btn bg-danger/15 text-danger hover:bg-danger/25 active:bg-danger/25 border border-danger/30;
   }
   .card {
     @apply rounded-xl border border-ink-700 bg-ink-800/70 backdrop-blur-sm;
@@ -41,12 +57,18 @@
   .input {
     @apply w-full rounded-lg border border-ink-600 bg-ink-800 px-3 py-2 text-sm text-ink-100;
     @apply focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/40;
+    min-height: 40px;
   }
   .progress-track {
     @apply h-2 w-full rounded-full bg-ink-700 overflow-hidden;
   }
   .progress-fill {
     @apply h-full rounded-full bg-accent-strong transition-[width] duration-300;
+  }
+
+  /* Prose body — narrower line length on mobile readability */
+  .prose-block {
+    @apply leading-relaxed;
   }
 }
 
@@ -63,4 +85,11 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #3a414c;
+}
+
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 }

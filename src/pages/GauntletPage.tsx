@@ -17,8 +17,8 @@ export function GauntletPage() {
       <Link to="/" className="text-xs text-ink-300 hover:text-ink-100">← Home</Link>
 
       <div>
-        <h1 className="text-2xl font-semibold text-ink-100">Debug Gauntlet</h1>
-        <p className="text-ink-300 mt-2 max-w-2xl">
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100">Debug Gauntlet</h1>
+        <p className="text-sm sm:text-base text-ink-300 mt-2 max-w-2xl">
           Broken code. Real error messages. Fix one snippet at a time. Officially unlocks after
           Module 4, but you can warm up whenever.
         </p>
