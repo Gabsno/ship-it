@@ -1,13 +1,33 @@
 import type { Lesson, LessonBlock } from '@/types/lesson';
 import { MODULE_1_LESSONS } from './01-runtime';
 import { MODULE_2_LESSONS } from './02-javascript';
+import { MODULE_3_LESSONS } from './03-terminal';
+import { MODULE_4_LESSONS } from './04-git-github';
+import { MODULE_5_LESSONS } from './05-html-css-dom';
+import { MODULE_6_LESSONS } from './06-async-fetch';
+import { MODULE_7_LESSONS } from './07-node-express';
+import { MODULE_8_LESSONS } from './08-sql-sqlite';
+import { MODULE_9_LESSONS } from './09-react';
+import { MODULE_10_LESSONS } from './10-auth-jwt';
+import { MODULE_11_LESSONS } from './11-react-native';
+import { MODULE_12_LESSONS } from './12-deploy-ship';
+import { MODULE_13_LESSONS } from './13-capstone';
 import { TEST_BLOCKS_LESSON } from './test-blocks';
 
-// Order matters: lessons render in this order on the module page and
-// "first incomplete" lookups walk it top-to-bottom.
 export const LESSONS: Lesson[] = [
   ...MODULE_1_LESSONS,
   ...MODULE_2_LESSONS,
+  ...MODULE_3_LESSONS,
+  ...MODULE_4_LESSONS,
+  ...MODULE_5_LESSONS,
+  ...MODULE_6_LESSONS,
+  ...MODULE_7_LESSONS,
+  ...MODULE_8_LESSONS,
+  ...MODULE_9_LESSONS,
+  ...MODULE_10_LESSONS,
+  ...MODULE_11_LESSONS,
+  ...MODULE_12_LESSONS,
+  ...MODULE_13_LESSONS,
   TEST_BLOCKS_LESSON,
 ];
 
