@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(60% 50% at 80% -10%, rgba(110, 231, 183, 0.10), transparent 60%),
+      radial-gradient(40% 40% at -10% 100%, rgba(167, 243, 208, 0.07), transparent 60%),
+      #0b0d10;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent/40;
+  }
+  .btn-primary {
+    @apply btn bg-accent-strong text-ink-900 hover:bg-accent;
+  }
+  .btn-ghost {
+    @apply btn bg-ink-800 text-ink-100 hover:bg-ink-700 border border-ink-600;
+  }
+  .btn-danger {
+    @apply btn bg-danger/15 text-danger hover:bg-danger/25 border border-danger/30;
+  }
+  .card {
+    @apply rounded-xl border border-ink-700 bg-ink-800/70 backdrop-blur-sm;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium;
+  }
+  .input {
+    @apply w-full rounded-lg border border-ink-600 bg-ink-800 px-3 py-2 text-sm text-ink-100;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/40;
+  }
+  .progress-track {
+    @apply h-2 w-full rounded-full bg-ink-700 overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full bg-accent-strong transition-[width] duration-300;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0d10;
+}
+::-webkit-scrollbar-thumb {
+  background: #262b33;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a414c;
+}
