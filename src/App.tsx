@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppShell } from '@/components/AppShell';
 import { HomePage } from '@/pages/HomePage';
+import { CurriculumPage } from '@/pages/CurriculumPage';
 import { ModulePage } from '@/pages/ModulePage';
 import { LessonPage } from '@/pages/LessonPage';
 import { BuildAlongPage } from '@/pages/BuildAlongPage';
@@ -14,6 +15,7 @@ export default function App() {
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<HomePage />} />
+        <Route path="curriculum" element={<CurriculumPage />} />
         <Route path="module/:moduleId" element={<ModulePage />} />
         <Route path="lesson/:lessonId" element={<LessonPage />} />
         <Route path="build-along/:id" element={<BuildAlongPage />} />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Editor, { type OnChange, type OnMount } from '@monaco-editor/react';
 import type { CodeLanguage } from '@/types/lesson';
+import { HighlightedCode } from '@/components/HighlightedCode';
 
 const LANG_MAP: Record<CodeLanguage, string> = {
   js: 'javascript',
@@ -47,6 +48,21 @@ export function CodeEditor({
   const isNarrow = useIsNarrowViewport();
   const fontSize = isNarrow ? 14 : 13;
 
+  // Read-only displays don't need Monaco at all. Use a lightweight syntax-
+  // highlighted block — instant to render, tiny payload, beautiful on mobile.
+  if (readOnly) {
+    const numericHeight = typeof height === 'number' ? height : undefined;
+    return (
+      <HighlightedCode
+        code={value}
+        language={language}
+        ariaLabel={ariaLabel}
+        showLineNumbers={!isNarrow}
+        maxHeight={numericHeight}
+      />
+    );
+  }
+
   return (
     <div
       className="rounded-lg overflow-hidden border border-ink-700 bg-[#1e1e1e]"
@@ -74,8 +90,6 @@ export function CodeEditor({
           smoothScrolling: true,
           cursorBlinking: 'smooth',
           wordWrap: 'on',
-          // mobile: hide the overview ruler (the right-edge scroll preview)
-          // and make scrollbar thinner
           overviewRulerLanes: isNarrow ? 0 : 3,
           scrollbar: isNarrow
             ? { vertical: 'auto', horizontal: 'hidden', verticalScrollbarSize: 6 }

@@ -1,18 +1,35 @@
-import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { getLesson } from '@/data/lessons';
+import { useEffect, useMemo } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getLesson, LESSONS } from '@/data/lessons';
 import { BlockRenderer } from '@/components/blocks/BlockRenderer';
 import { QuizBlock } from '@/components/QuizBlock';
 import { useProgress } from '@/hooks/useProgress';
+import { CURRICULUM } from '@/data/curriculum';
 
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
+  const navigate = useNavigate();
   const lesson = lessonId ? getLesson(lessonId) : undefined;
   const { progress, markLessonComplete, setSettings } = useProgress();
 
   useEffect(() => {
     if (lesson) setSettings({ lastLessonId: lesson.id });
   }, [lesson, setSettings]);
+
+  const mod = useMemo(
+    () => (lesson ? CURRICULUM.find((m) => m.id === lesson.moduleId) : undefined),
+    [lesson],
+  );
+
+  const { prevLesson, nextLesson } = useMemo(() => {
+    if (!lesson) return { prevLesson: undefined, nextLesson: undefined };
+    const sameModule = LESSONS.filter((l) => l.moduleId === lesson.moduleId);
+    const idx = sameModule.findIndex((l) => l.id === lesson.id);
+    return {
+      prevLesson: idx > 0 ? sameModule[idx - 1] : undefined,
+      nextLesson: idx < sameModule.length - 1 ? sameModule[idx + 1] : undefined,
+    };
+  }, [lesson]);
 
   if (!lesson) {
     return (
@@ -39,57 +56,114 @@ export function LessonPage() {
   const totalTrackable = lesson.blocks.filter((b) => b.type !== 'explain').length;
   const pct = totalTrackable === 0 ? 0 : Math.round((completedBlocks / totalTrackable) * 100);
 
+  const completeAndNext = () => {
+    markLessonComplete(lesson.id);
+    if (nextLesson) {
+      navigate(`/lesson/${nextLesson.id}`);
+    } else if (mod) {
+      navigate(`/module/${mod.id}`);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <Link to="/" className="text-xs text-ink-300 hover:text-ink-100">← Home</Link>
-        <div className="mt-2 flex items-center gap-2 text-xs text-ink-400">
-          <span>Lesson</span>
-          <span>·</span>
+      {/* Header — back link + module crumb + title + progress */}
+      <div className="space-y-2">
+        <Link
+          to={mod ? `/module/${mod.id}` : '/curriculum'}
+          className="text-xs text-ink-300 hover:text-ink-100 inline-flex items-center gap-1"
+        >
+          ← {mod ? mod.title : 'Curriculum'}
+        </Link>
+        <div className="flex items-center gap-2 text-xs text-ink-400 flex-wrap">
           <span>{lesson.estimatedMinutes} min</span>
           <span>·</span>
           <span>module: {lesson.moduleId}</span>
         </div>
-        <h1 className="text-xl sm:text-2xl font-semibold text-ink-100 mt-1">{lesson.title}</h1>
-        <p className="text-sm sm:text-base text-ink-300 mt-1">{lesson.objective}</p>
+        <h1 className="text-2xl sm:text-3xl font-semibold text-ink-100 leading-tight">
+          {lesson.title}
+        </h1>
+        <p className="text-sm sm:text-base text-ink-300">{lesson.objective}</p>
 
-        <div className="mt-4">
-          <div className="progress-track">
-            <div className="progress-fill" style={{ width: `${pct}%` }} />
+        {totalTrackable > 0 && (
+          <div className="pt-2">
+            <div className="progress-track">
+              <div className="progress-fill" style={{ width: `${pct}%` }} />
+            </div>
+            <div className="mt-1 text-[11px] text-ink-400">
+              {completedBlocks} / {totalTrackable} interactive blocks · {pct}%
+            </div>
           </div>
-          <div className="mt-1 text-[11px] text-ink-400">
-            {completedBlocks} / {totalTrackable} interactive blocks complete · {pct}%
-          </div>
-        </div>
+        )}
       </div>
 
-      <div className="space-y-5">
+      {/* Blocks */}
+      <div className="space-y-6">
         {lesson.blocks.map((block, i) => (
           <BlockRenderer key={`${block.type}-${i}`} block={block} />
         ))}
       </div>
 
+      {/* Quiz, if present */}
       {lesson.quiz && lesson.quiz.length > 0 && (
         <QuizBlock quizId={`${lesson.id}-quiz`} questions={lesson.quiz} />
       )}
 
-      <div className="card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <div className="text-sm font-medium text-ink-100">Mark lesson complete</div>
-          <div className="text-xs text-ink-300">
-            Not every block auto-completes (Explain blocks don't, for example).
-            Toggle this when you're done.
-          </div>
-        </div>
+      {/* Inline footer — desktop. Mobile gets the sticky bar below. */}
+      <div className="hidden sm:flex items-center justify-between gap-3 pt-4">
+        {prevLesson ? (
+          <Link to={`/lesson/${prevLesson.id}`} className="btn-ghost">
+            ← {prevLesson.title}
+          </Link>
+        ) : (
+          <span />
+        )}
         <button
           type="button"
-          className={lessonDone ? 'btn-ghost w-full sm:w-auto' : 'btn-primary w-full sm:w-auto'}
-          onClick={() => markLessonComplete(lesson.id)}
-          disabled={lessonDone}
+          className={lessonDone ? 'btn-ghost' : 'btn-primary'}
+          onClick={completeAndNext}
         >
-          {lessonDone ? 'Completed' : 'Mark complete'}
+          {lessonDone
+            ? nextLesson
+              ? `Next: ${nextLesson.title} →`
+              : 'Back to module'
+            : nextLesson
+              ? 'Mark complete + next →'
+              : 'Mark complete'}
         </button>
       </div>
+
+      {/* Sticky mobile action bar */}
+      <div className="sm:hidden fixed bottom-[60px] inset-x-0 z-30 border-t border-ink-700 bg-ink-900/95 backdrop-blur supports-[backdrop-filter]:bg-ink-900/85">
+        <div className="px-3 py-2.5 flex items-center gap-2">
+          {prevLesson && (
+            <Link
+              to={`/lesson/${prevLesson.id}`}
+              className="btn-ghost shrink-0 min-w-[40px] px-2"
+              aria-label="Previous lesson"
+            >
+              ←
+            </Link>
+          )}
+          <button
+            type="button"
+            className={`${lessonDone ? 'btn-ghost' : 'btn-primary'} flex-1`}
+            onClick={completeAndNext}
+          >
+            {lessonDone
+              ? nextLesson
+                ? 'Next lesson →'
+                : 'Back to module'
+              : nextLesson
+                ? 'Done · next →'
+                : 'Mark complete'}
+          </button>
+        </div>
+        <div className="h-[env(safe-area-inset-bottom)]" aria-hidden />
+      </div>
+
+      {/* Pad so the last content isn't hidden under the sticky bar */}
+      <div className="sm:hidden h-20" aria-hidden />
     </div>
   );
 }
