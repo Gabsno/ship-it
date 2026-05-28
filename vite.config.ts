@@ -19,7 +19,6 @@ export default defineConfig({
         'apple-touch-icon-180.png',
       ],
       manifest: {
-        id: '/ship-it/',
         name: 'Ship It — drill, build, ship.',
         short_name: 'Ship It',
         description:
@@ -27,15 +26,20 @@ export default defineConfig({
         start_url: '/ship-it/',
         scope: '/ship-it/',
         display: 'standalone',
+        display_override: ['standalone', 'minimal-ui'],
         orientation: 'portrait',
         background_color: '#0b0d10',
         theme_color: '#0b0d10',
+        prefer_related_applications: false,
         categories: ['education', 'productivity', 'developer'],
         icons: [
+          // PNGs first — these are what Chrome's installability check looks at
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // Maskable variant for Android adaptive icons
           { src: 'maskable-icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
-          { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
+          // SVG as a fallback for any-size requests
+          { src: 'icon.svg', sizes: '512x512 256x256 192x192 128x128 96x96 64x64 48x48 32x32 24x24 16x16', type: 'image/svg+xml', purpose: 'any' },
         ],
       },
       workbox: {
