@@ -2,13 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2310b981'/><text x='50%25' y='58%25' text-anchor='middle' font-family='Inter,sans-serif' font-size='34' font-weight='700' fill='white'>S</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0d10" />
-    <title>Ship It — Drill, Build, Ship.</title>
-    <script type="module" crossorigin src="/ship-it/assets/index-DOxwACWI.js"></script>
-    <link rel="stylesheet" crossorigin href="/ship-it/assets/index-CGMuoaQw.css">
-  </head>
+
+    <title>Ship It — drill, build, ship.</title>
+    <meta name="description" content="Personal training rig. Drill the syntax. Build the projects. Ship without AI." />
+
+    <!-- Favicon + iOS touch icon (full PWA icon set is wired in manifest) -->
+    <link rel="icon" type="image/svg+xml" href="/ship-it/icon.svg" />
+    <link rel="apple-touch-icon" href="/ship-it/apple-touch-icon-180.png" />
+
+    <!-- iOS Safari standalone hints — used when "Add to Home Screen" -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Ship It" />
+    <script type="module" crossorigin src="/ship-it/assets/index-OqMhKsb1.js"></script>
+    <link rel="stylesheet" crossorigin href="/ship-it/assets/index-BRxt2gQg.css">
+  <link rel="manifest" href="/ship-it/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/ship-it/registerSW.js"></script></head>
   <body class="bg-ink-900 text-ink-100">
     <div id="root"></div>
   </body>
