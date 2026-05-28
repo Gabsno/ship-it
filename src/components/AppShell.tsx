@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { UpdateBanner } from './UpdateBanner';
 import { MobileTabBar } from './MobileTabBar';
+import { InstallPrompt } from './InstallPrompt';
 import { APP_VERSION } from '@/lib/version';
 
 const NAV_ITEMS: { to: string; label: string }[] = [
@@ -51,6 +52,7 @@ export function AppShell() {
       </footer>
       <MobileTabBar />
       <UpdateBanner />
+      <InstallPrompt variant="banner" />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useListen } from '@/hooks/useListen';
 import { useProgress } from '@/hooks/useProgress';
 import { DEFAULT_VOICE_PRESET_ID, isOnlineVoice, VOICE_PRESETS } from '@/data/voicePresets';
+import { InstallPrompt } from '@/components/InstallPrompt';
 
 const TEST_TEXT =
   'Hello — this is Ship It. Your training rig for building real apps without AI assistance.';
@@ -32,6 +33,9 @@ export function SettingsPage() {
           Voice presets, rate, pitch. All stored locally.
         </p>
       </div>
+
+      {/* Install section — always reachable here, even if the floating banner was dismissed */}
+      <InstallPrompt variant="inline" />
 
       <section className="card p-5 space-y-5">
         <div>
