@@ -1,7 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { UpdateBanner } from './UpdateBanner';
 import { MobileTabBar } from './MobileTabBar';
-import { InstallPrompt } from './InstallPrompt';
+import { InstallPrompt, InstallButton } from './InstallPrompt';
+import { PageTransition } from './PageTransition';
 import { APP_VERSION } from '@/lib/version';
 
 const NAV_ITEMS: { to: string; label: string }[] = [
@@ -14,8 +15,8 @@ const NAV_ITEMS: { to: string; label: string }[] = [
 export function AppShell() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-30 border-b border-ink-700 bg-ink-900/80 backdrop-blur">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-3 sm:gap-6">
+      <header className="sticky top-0 z-30 border-b border-ink-700 bg-ink-900/85 backdrop-blur supports-[backdrop-filter]:bg-ink-900/70">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 h-14 flex items-center gap-3 sm:gap-6">
           <NavLink to="/" className="flex items-center gap-2 font-semibold">
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-accent-strong text-ink-900 text-sm">
               S
@@ -42,10 +43,16 @@ export function AppShell() {
               </NavLink>
             ))}
           </nav>
+          {/* Mobile spacer + inline Install button (visible everywhere) */}
+          <div className="ml-auto sm:ml-2 flex items-center gap-2">
+            <InstallButton />
+          </div>
         </div>
       </header>
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-8 pb-24 sm:pb-8">
-        <Outlet />
+      <main className="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-5 sm:py-8 pb-24 sm:pb-8">
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
       <footer className="hidden sm:block border-t border-ink-700 py-4 text-center text-xs text-ink-400 px-3">
         Ship It v{APP_VERSION} · personal training tool · localStorage only
